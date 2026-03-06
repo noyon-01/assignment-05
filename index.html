@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="./assets/github-logo.png" type="image/x-icon">
     <title>Login-Page</title>
 
     <!-- tailwind css & daisy ui cdn link-->
@@ -22,10 +23,54 @@
 
 </head>
 
-<body>
-    <h1 class="font-bold text-5xl text-center">Assignment-05</h1>
+<body class="bg-[#F8FAFC] min-h-screen flex justify-center items-center">
 
-    <script src="script.js"></script>
+    <div class="w-[500px] max-w-md mx-auto bg-white shadow rounded-3xl">
+
+        <div id="logo_section" class="w-[100px] mx-auto pt-8">
+            <img src="./assets/github-logo.png" alt="#">
+        </div>
+
+        <div class="text-center pt-4">
+            <h1 class="text-2xl font-semibold">GitHub Issues Tracker</h1>
+            <p class="text-[#64748B]">Sign in to manage your issues</p>
+        </div>
+
+        <div id="form_section">
+            <div class="card bg-base-100 w-full">
+                <div class="card-body">
+                    <fieldset class="fieldset">
+                        <label class="label text-[16px] font-medium text-[#1F2937]">Username</label>
+                        <input id="user_Input" type="text" minlength="5" maxlength="5"
+                            class="input rounded bg-base-200 mt-1 w-full text-[16px] font-medium" placeholder="Enter Username" />
+                            <p class="text-sm text-[#4A00FF]">Default: admin</p>
+                        <label class="label text-[16px] font-medium text-[#1F2937] mt-2">Password</label>
+                        <input id="login_password" type="password" minlength="8" maxlength="8"
+                            class="input rounded bg-base-200 mt-1 w-full text-[16px] font-medium" placeholder="Enter Password" />
+                            <p class="text-sm text-[#4A00FF]">Default: admin123</p>
+                        <button id="signin_btn" class="btn btn-neutral mt-4 bg-primary rounded">Sign In</button>
+                    </fieldset>
+                </div>
+            </div>
+        </div>
+        
+        <div class="pb-3 flex justify-center items-center gap-2 mx-8">
+            <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
+            <div class="font-semibold">OR</div>
+            <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
+        </div>
+
+        <div class="text-center">
+            <p class="text-sm text-[#64748B]">Demo Credentials:</p>
+            <div class="bg-[#F8FAFC] mx-8 mt-2 mb-8 py-3 rounded">
+                <p><span class="text-[16px] font-semibold">Username:</span> admin</p>
+                <p><span class="text-[16px] font-semibold">Password:</span> admin123</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script src="./scripts/login.js"></script>
 </body>
 
 </html>
