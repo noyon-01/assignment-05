@@ -41,15 +41,15 @@ const display_single_issue = (details) => {
   const modal_container = document.getElementById("modal_container");
   modal_container.innerHTML = `
                      <div>
-                        <h1 class="text-2xl font-bold">${details.title}</h1>
-                        <div class="flex items-center gap-3 pt-3 pb-7">
-                            <button class="${details.status.toLowerCase() === "open" ? "bg-[#00A96E] text-white py-0.5" : "bg-[#A855F7] text-white py-1"}  outline-none rounded-full px-3 text-sm font-semibold">${details.status.toUpperCase()}</button>
-                            <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
-                            <p class="text-sm text-[#64748B]">  Opened by Fahim Ahmed</p>
-                            <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
-                            <p class="text-sm text-[#64748B]">22/02/2026</p>
+                        <h1 class="text-xl md:text-2xl font-bold">${details.title}</h1>
+                        <div class="flex items-center gap-3 pt-3 pb-3 md:pb-7">
+                            <button class="${details.status.toLowerCase() === "open" ? "bg-[#00A96E] text-white py-0.5" : "bg-[#A855F7] text-white py-1"}  outline-none rounded-full px-3 text-[12px] md:text-sm font-semibold">${details.status.toUpperCase()}</button>
+                            <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#64748B] rounded-full"></div>
+                            <p class="text-[12px] md:text-sm text-[#64748B]">Opened by Fahim Ahmed</p>
+                            <div class="w-1.5 h-1.5 md:w-2 md:h-2 bg-[#64748B] rounded-full"></div>
+                            <p class="text-[12px] md:text-sm text-[#64748B]">22/02/2026</p>
                         </div>
-                        <div class="mt-2 mb-2.5">${create_element(details.labels)}</div>
+                        <div class="mt-2 md:mb-2.5">${create_element(details.labels)}</div>
                         <p class="text-[#64748B] py-6">${details.description}</p>
                             <div class="bg-[#F8FAFC] p-4 flex items-center gap-40">
                                 <div>
