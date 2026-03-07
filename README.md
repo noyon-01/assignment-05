@@ -1,6 +1,6 @@
 1️⃣ What is the difference between var, let, and const?
 Ans:The defference between var, let, and const is:-
-1. var
+1.var
  - Old way to declare a variable in JavaScript.
  - It can be re-declared and updated.
  - It is function scoped.
