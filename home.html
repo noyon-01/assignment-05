@@ -39,9 +39,9 @@
                         <path d="m21 21-4.3-4.3"></path>
                     </g>
                 </svg>
-                <input type="search" class="text-[16px] font-semibold" required placeholder="Search issues..." />
+                <input id="search_input" type="search" class="text-[16px] font-semibold" required placeholder="Search issues..." />
             </label>
-            <button class="btn btn-primary text-white text-[16px] font-semibold"><i class="fa-solid fa-plus"></i> New
+            <button id="search_btn" class="btn btn-primary text-white text-[16px] font-semibold"><i class="fa-solid fa-plus"></i> New
                 Issue</button>
         </div>
 
@@ -50,16 +50,19 @@
     <main class="bg-[#F8FAFC] py-14">
 
         <section class="max-w-7xl mx-auto bg-white rounded p-6 flex gap-2 mb-4 shadow">
-            <button onclick="toggleStyle('all_toggle_btn')" id="all_toggle_btn" class="btn btn-primary w-28 text-[16px] font-semibold">All</button>
-            <button onclick="toggleStyle('open_toggle_btn')" id="open_toggle_btn" class="btn btn-primary btn-soft w-28 text-[16px] font-semibold">Open</button>
-            <button onclick="toggleStyle('closed_toggle_btn')" id="closed_toggle_btn" class="btn btn-primary btn-soft w-28 text-[16px] font-semibold">Closed</button>
+            <button onclick="toggleStyle('all_toggle_btn')" id="all_toggle_btn"
+                class="btn btn-primary w-28 text-[16px] font-semibold">All</button>
+            <button onclick="toggleStyle('open_toggle_btn')" id="open_toggle_btn"
+                class="btn btn-primary btn-soft w-28 text-[16px] font-semibold">Open</button>
+            <button onclick="toggleStyle('closed_toggle_btn')" id="closed_toggle_btn"
+                class="btn btn-primary btn-soft w-28 text-[16px] font-semibold">Closed</button>
         </section>
 
         <section class="flex justify-between items-center max-w-7xl mx-auto bg-white rounded p-6 shadow">
             <div class="flex justify-center items-center gap-2">
                 <div class="p-2 rounded-full bg-[#ECE4FF]"><img class="w-8" src="./assets/Aperture.png" alt=""></div>
                 <div>
-                    <h1 class="text-[20px] font-bold"><span>50</span> Issues</h1>
+                    <h1 class="text-[20px] font-bold"><span id="count">0</span> Issues</h1>
                     <p class="text-[16px] text-[#64748B]">Track and manage your project issues</p>
                 </div>
             </div>
@@ -78,7 +81,7 @@
 
         <div class="max-w-7xl mx-auto w-full h-0.5 bg-[#E4E4E7]"></div>
 
-        <section  class="flex justify-center items-center ">
+        <section class="flex justify-center items-center ">
             <span id="spinner" class="loading loading-spinner loading-xl hidden"></span>
         </section>
 

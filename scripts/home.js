@@ -1,3 +1,8 @@
+const all_toggle_btn = document.getElementById("all_toggle_btn");
+const open_toggle_btn = document.getElementById("open_toggle_btn");
+const closed_toggle_btn = document.getElementById("closed_toggle_btn");
+const count = document.getElementById("count");
+
 const create_element = (arr) => {
   const htmlElement = arr.map((el) => `<span class="btn">${el}</span>`);
   return htmlElement.join(" ");
@@ -19,6 +24,7 @@ const load_issues = async () => {
   const res = await fetch(url);
   const data = await res.json();
   display_issues(data.data);
+  count.innerText = data.data.length;
 };
 
 const load_single_issue = async (id) => {
@@ -60,11 +66,11 @@ const display_single_issue = (details) => {
 const display_issues = (issues) => {
   const card_container = document.getElementById("card_container");
   card_container.innerHTML = "";
+
   issues.forEach((i) => {
-    // console.log(i);
     const card_div = document.createElement("div");
     card_div.innerHTML = `
-    <div onclick="load_single_issue(${i.id})" class="shadow rounded border-t-3 border-green-600 h-full">
+    <div onclick="load_single_issue(${i.id})" id="djdjdj" class="shadow rounded border-t-3 border-green-600 h-full">
                 <div class="bg-white rounded p-4">
                     <div class="flex justify-between items-center">
                         <img src="./assets/Open-Status.png" alt="">
@@ -88,10 +94,6 @@ const display_issues = (issues) => {
 
 load_issues();
 
-const all_toggle_btn = document.getElementById("all_toggle_btn");
-const open_toggle_btn = document.getElementById("open_toggle_btn");
-const closed_toggle_btn = document.getElementById("closed_toggle_btn");
-
 const toggleStyle = (id) => {
   all_toggle_btn.classList.add("btn-primary", "btn-soft");
   open_toggle_btn.classList.add("btn-primary", "btn-soft");
@@ -104,43 +106,105 @@ const toggleStyle = (id) => {
   const selected_toggle_btn = document.getElementById(id);
   selected_toggle_btn.classList.remove("btn-primary", "btn-soft");
   selected_toggle_btn.classList.add("btn-primary");
+};
 
-  current_job_count_list = id;
+all_toggle_btn.addEventListener("click", () => {
+  load_issues();
+});
 
-  if (id === "interview_toggle_btn") {
-    job_cards_section.classList.add("hidden");
-    filtered_job_section.classList.remove("hidden");
-    rejectedJobCount.classList.add("hidden");
-    if (interview_job_count_list.length > 0) {
-      no_job_section.classList.add("hidden");
-      interviewJobCount.classList.remove("hidden");
-      countElement.classList.remove("hidden");
-    } else {
-      no_job_section.classList.remove("hidden");
-      interviewJobCount.classList.add("hidden");
-      countElement.classList.add("hidden");
+open_toggle_btn.addEventListener("click", async () => {
+  manage_spinner(true);
+  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+  const res = await fetch(url);
+  const data = await res.json();
+  display_open_status(data.data);
+});
+
+const display_open_status = (status) => {
+  const card_container = document.getElementById("card_container");
+  card_container.innerHTML = "";
+
+  status.forEach((s) => {
+    if (s.status === "open") {
+      const card_open_div = document.createElement("div");
+      card_open_div.innerHTML = `
+      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-3 border-green-600 h-full">
+                <div class="bg-white rounded p-4">
+                    <div class="flex justify-between items-center">
+                        <img src="./assets/Open-Status.png" alt="">
+                        <p class="bg-[#FEECEC] text-[#EF4444] px-6 rounded-2xl">${s.priority.toUpperCase()}</p>
+                    </div>
+                    <h1 class="text-[16px] font-semibold mt-3 mb-2">${s.title}</h1>
+                    <p class="text-[12px] text-[#64748B]">${s.description}</p>
+                    <div class="mt-2 mb-2.5">${create_element(s.labels)}</div>
+                </div>
+                <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
+                <div class="bg-white rounded p-4">
+                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                </div>
+            </div>
+    `;
+      card_container.appendChild(card_open_div);
     }
-    renderInterviewJob();
-  } else if (id === "all_toggle_btn") {
-    filtered_job_section.classList.add("hidden");
-    no_job_section.classList.add("hidden");
-    interviewJobCount.classList.add("hidden");
-    rejectedJobCount.classList.add("hidden");
-    countElement.classList.add("hidden");
-    job_cards_section.classList.remove("hidden");
-  } else if (id === "rejected_toggle_btn") {
-    job_cards_section.classList.add("hidden");
-    filtered_job_section.classList.remove("hidden");
-    interviewJobCount.classList.add("hidden");
-    if (rejected_job_count_list.length > 0) {
-      no_job_section.classList.add("hidden");
-      rejectedJobCount.classList.remove("hidden");
-      countElement.classList.remove("hidden");
-    } else {
-      no_job_section.classList.remove("hidden");
-      rejectedJobCount.classList.add("hidden");
-      countElement.classList.add("hidden");
+    manage_spinner(false);
+    count.innerText = card_container.children.length;
+  });
+};
+
+closed_toggle_btn.addEventListener("click", async () => {
+  manage_spinner(true);
+  const url = "https://phi-lab-server.vercel.app/api/v1/lab/issues";
+  const res = await fetch(url);
+  const data = await res.json();
+  display_closed_status(data.data);
+});
+
+const display_closed_status = (status) => {
+  const card_container = document.getElementById("card_container");
+  card_container.innerHTML = "";
+
+  status.forEach((s) => {
+    if (s.status === "closed") {
+      const card_closed_div = document.createElement("div");
+      card_closed_div.innerHTML = `
+      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-3 border-green-600 h-full">
+                <div class="bg-white rounded p-4">
+                    <div class="flex justify-between items-center">
+                        <img src="./assets/Open-Status.png" alt="">
+                        <p class="bg-[#FEECEC] text-[#EF4444] px-6 rounded-2xl">${s.priority.toUpperCase()}</p>
+                    </div>
+                    <h1 class="text-[16px] font-semibold mt-3 mb-2">${s.title}</h1>
+                    <p class="text-[12px] text-[#64748B]">${s.description}</p>
+                    <div class="mt-2 mb-2.5">${create_element(s.labels)}</div>
+                </div>
+                <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
+                <div class="bg-white rounded p-4">
+                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                </div>
+            </div>
+    `;
+      card_container.appendChild(card_closed_div);
     }
-    renderRejectedJob();
-  }
-}
+    manage_spinner(false);
+    count.innerText = card_container.children.length;
+  });
+};
+
+document.getElementById("search_btn").addEventListener("click", () => {
+  const input = document.getElementById("search_input");
+  const inputValue = input.value.trim().toLowerCase();
+
+  fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+    // fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=sent")
+    .then((res) => res.json())
+    .then((data) => {
+      const all_issues = data.data;
+
+      const filter_issues = all_issues.filter((data) => {
+        return data.title.toLowerCase().includes(inputValue);
+      });
+      display_issues(filter_issues);
+    });
+});
