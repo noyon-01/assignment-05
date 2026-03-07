@@ -4,7 +4,10 @@ const closed_toggle_btn = document.getElementById("closed_toggle_btn");
 const count = document.getElementById("count");
 
 const create_element = (arr) => {
-  const htmlElement = arr.map((el) => `<span class="btn">${el}</span>`);
+  const htmlElement = arr.map(
+    (el) =>
+      `<span class="px-3 py-1 rounded-2xl text-[12px] font-semibold ${el.toLowerCase() === "bug" ? "bg-[#FECACA] text-[#EF4444]" : el.toLowerCase() === "help wanted" ? "bg-[#FDE68A] text-[#D97706]" : el.toLowerCase() === "enhancement" ? "bg-[#BBF7D0] text-[#00A96E]" : "bg-[#BBF7D0] text-[#00A96E]"}">${el.toUpperCase()}</span>`,
+  );
   return htmlElement.join(" ");
 };
 
@@ -40,7 +43,7 @@ const display_single_issue = (details) => {
                      <div>
                         <h1 class="text-2xl font-bold">${details.title}</h1>
                         <div class="flex items-center gap-3 pt-3 pb-7">
-                            <button class="btn btn-success outline-none rounded-full">${details.status}</button>
+                            <button class="${details.status.toLowerCase() === "open" ? "bg-[#00A96E] text-white py-0.5" : "bg-[#A855F7] text-white py-1"}  outline-none rounded-full px-3 text-sm font-semibold">${details.status.toUpperCase()}</button>
                             <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
                             <p class="text-sm text-[#64748B]">  Opened by Fahim Ahmed</p>
                             <div class="w-2 h-2 bg-[#64748B] rounded-full"></div>
@@ -51,11 +54,11 @@ const display_single_issue = (details) => {
                             <div class="bg-[#F8FAFC] p-4 flex items-center gap-40">
                                 <div>
                                     <p class="text-[#64748B]">Assignee:</p>
-                                    <p class="text-[16px] font-semibold">${details.assignee}</p>
+                                    <p class="text-[16px] font-semibold">${details.assignee === "" ? "Assignee not found" : details.assignee }</p>
                                 </div>
                                 <div>
-                                    <p class="text-[#64748B]">Priority:</p>
-                                    <button class="bg-[#EF4444] text-white px-3.5 rounded-full">${details.priority}</button>
+                                    <p class="text-[#64748B] mb-1">Priority:</p>
+                                    <button class="${details.priority.toLowerCase() === "high" ? "bg-[#FEECEC] text-[#EF4444]" : details.priority.toLowerCase() === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : details.priority.toLowerCase() === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-white"} px-4 py-1 rounded-full text-[12px] font-semibold">${details.priority.toUpperCase()}</button>
                                 </div>
                             </div>
                     </div>
@@ -69,12 +72,13 @@ const display_issues = (issues) => {
 
   issues.forEach((i) => {
     const card_div = document.createElement("div");
-    card_div.innerHTML = `
-    <div onclick="load_single_issue(${i.id})" id="djdjdj" class="shadow rounded border-t-3 border-green-600 h-full">
+
+    if (i.status === "open") {
+      card_div.innerHTML = `<div onclick="load_single_issue(${i.id})" id="djdjdj" class="shadow rounded border-t-3 border-[#00A96E] h-full">
                 <div class="bg-white rounded p-4">
                     <div class="flex justify-between items-center">
                         <img src="./assets/Open-Status.png" alt="">
-                        <p class="bg-[#FEECEC] text-[#EF4444] px-6 rounded-2xl">${i.priority.toUpperCase()}</p>
+                        <p class="${i.priority.toLowerCase() === "high" ? "bg-[#FEECEC] text-[#EF4444]" : i.priority.toLowerCase() === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : i.priority.toLowerCase() === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-white"} px-6 rounded-2xl text-sm font-semibold">${i.priority.toUpperCase()}</p>
                     </div>
                     <h1 class="text-[16px] font-semibold mt-3 mb-2">${i.title}</h1>
                     <p class="text-[12px] text-[#64748B]">${i.description}</p>
@@ -87,6 +91,26 @@ const display_issues = (issues) => {
                 </div>
             </div>
     `;
+    } else if (i.status === "closed") {
+      card_div.innerHTML = `<div onclick="load_single_issue(${i.id})" id="djdjdj" class="shadow rounded border-t-3 border-[#A855F7] h-full">
+                <div class="bg-white rounded p-4">
+                    <div class="flex justify-between items-center">
+                        <img src="./assets/Closed-Status.png" alt="">
+                        <p class="${i.priority.toLowerCase() === "high" ? "bg-[#FEECEC] text-[#EF4444]" : i.priority.toLowerCase() === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : i.priority.toLowerCase() === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-white"} px-6 rounded-2xl text-sm font-semibold">${i.priority.toUpperCase()}</p>
+                    </div>
+                    <h1 class="text-[16px] font-semibold mt-3 mb-2">${i.title}</h1>
+                    <p class="text-[12px] text-[#64748B]">${i.description}</p>
+                    <div class="mt-2 mb-2.5">${create_element(i.labels)}</div>
+                </div>
+                <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
+                <div class="bg-white rounded p-4">
+                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                </div>
+            </div>
+    `;
+    }
+
     card_container.appendChild(card_div);
   });
   manage_spinner(false);
@@ -128,11 +152,11 @@ const display_open_status = (status) => {
     if (s.status === "open") {
       const card_open_div = document.createElement("div");
       card_open_div.innerHTML = `
-      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-3 border-green-600 h-full">
+      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-4 border-[#00A96E] h-full">
                 <div class="bg-white rounded p-4">
                     <div class="flex justify-between items-center">
                         <img src="./assets/Open-Status.png" alt="">
-                        <p class="bg-[#FEECEC] text-[#EF4444] px-6 rounded-2xl">${s.priority.toUpperCase()}</p>
+                        <p class="${s.priority.toLowerCase() === "high" ? "bg-[#FEECEC] text-[#EF4444]" : s.priority.toLowerCase() === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : s.priority.toLowerCase() === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-white"} px-6 rounded-2xl text-sm font-semibold">${s.priority.toUpperCase()}</p>
                     </div>
                     <h1 class="text-[16px] font-semibold mt-3 mb-2">${s.title}</h1>
                     <p class="text-[12px] text-[#64748B]">${s.description}</p>
@@ -168,11 +192,11 @@ const display_closed_status = (status) => {
     if (s.status === "closed") {
       const card_closed_div = document.createElement("div");
       card_closed_div.innerHTML = `
-      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-3 border-green-600 h-full">
+      <div onclick="load_single_issue(${s.id})" class="shadow rounded border-t-3 border-[#A855F7] h-full">
                 <div class="bg-white rounded p-4">
                     <div class="flex justify-between items-center">
-                        <img src="./assets/Open-Status.png" alt="">
-                        <p class="bg-[#FEECEC] text-[#EF4444] px-6 rounded-2xl">${s.priority.toUpperCase()}</p>
+                        <img src="./assets/Closed-Status.png" alt="">
+                        <p class="${s.priority.toLowerCase() === "high" ? "bg-[#FEECEC] text-[#EF4444]" : s.priority.toLowerCase() === "medium" ? "bg-[#FFF6D1] text-[#F59E0B]" : s.priority.toLowerCase() === "low" ? "bg-[#EEEFF2] text-[#9CA3AF]" : "bg-white"} px-6 rounded-2xl text-sm font-semibold">${s.priority.toUpperCase()}</p>
                     </div>
                     <h1 class="text-[16px] font-semibold mt-3 mb-2">${s.title}</h1>
                     <p class="text-[12px] text-[#64748B]">${s.description}</p>
@@ -197,7 +221,6 @@ document.getElementById("search_btn").addEventListener("click", () => {
   const inputValue = input.value.trim().toLowerCase();
 
   fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
-    // fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues/search?q=sent")
     .then((res) => res.json())
     .then((data) => {
       const all_issues = data.data;
