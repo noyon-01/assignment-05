@@ -87,7 +87,7 @@ const display_issues = (issues) => {
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
                     <p class="text-sm text-[#64748B] mb-1.5">${i.author}</p>
-                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                    <p class="text-sm text-[#64748B]">${i.createdAt}</p>
                 </div>
             </div>
     `;
@@ -105,7 +105,7 @@ const display_issues = (issues) => {
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
                     <p class="text-sm text-[#64748B] mb-1.5">${i.author}</p>
-                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                    <p class="text-sm text-[#64748B]">${i.createdAt}</p>
                 </div>
             </div>
     `;
@@ -165,7 +165,7 @@ const display_open_status = (status) => {
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
                     <p class="text-sm text-[#64748B] mb-1.5">${s.author}</p>
-                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                    <p class="text-sm text-[#64748B]">${s.createdAt}</p>
                 </div>
             </div>
     `;
@@ -205,7 +205,7 @@ const display_closed_status = (status) => {
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
                     <p class="text-sm text-[#64748B] mb-1.5">${s.author}</p>
-                    <p class="text-sm text-[#64748B]">1/15/2024</p>
+                    <p class="text-sm text-[#64748B]">${s.createdAt}</p>
                 </div>
             </div>
     `;
