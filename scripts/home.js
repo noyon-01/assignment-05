@@ -86,7 +86,7 @@ const display_issues = (issues) => {
                 </div>
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
-                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B] mb-1.5">${i.author}</p>
                     <p class="text-sm text-[#64748B]">1/15/2024</p>
                 </div>
             </div>
@@ -104,7 +104,7 @@ const display_issues = (issues) => {
                 </div>
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
-                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B] mb-1.5">${i.author}</p>
                     <p class="text-sm text-[#64748B]">1/15/2024</p>
                 </div>
             </div>
@@ -164,7 +164,7 @@ const display_open_status = (status) => {
                 </div>
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
-                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B] mb-1.5">${s.author}</p>
                     <p class="text-sm text-[#64748B]">1/15/2024</p>
                 </div>
             </div>
@@ -204,7 +204,7 @@ const display_closed_status = (status) => {
                 </div>
                 <div class="w-full h-0.5 bg-[#E4E4E7]"></div>
                 <div class="bg-white rounded p-4">
-                    <p class="text-sm text-[#64748B] mb-1.5">#1 by john_doe</p>
+                    <p class="text-sm text-[#64748B] mb-1.5">${s.author}</p>
                     <p class="text-sm text-[#64748B]">1/15/2024</p>
                 </div>
             </div>
